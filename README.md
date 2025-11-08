@@ -17,3 +17,6 @@
 3. **Update Your `server.cfg`**: Add the following line to your `server.cfg` file:
    ```plaintext
    start rc_devcoords
+
+<img width="2093" height="1355" alt="image" src="https://github.com/user-attachments/assets/ea268fed-67c6-4de6-ac0b-17b136bf5d70" />
+<img width="2117" height="1391" alt="Screenshot 2025-11-08 052202" src="https://github.com/user-attachments/assets/95e251cd-4b85-484d-bfb4-a791185c8248" />
