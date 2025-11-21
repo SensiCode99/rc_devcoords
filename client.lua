@@ -23,6 +23,26 @@ function displayCoords(x, y, z, heading)
     DrawText(0.6, 0.9) -- Adjusted position for better visibility
 end
 
+-- Function to display street names on the screen
+function displayStreetNames(streetName, crossStreetName)
+    -- Set text font and size
+    SetTextFont(4)
+    SetTextProportional(1)
+    SetTextScale(0.6, 0.6) -- Smaller text size
+
+    -- Begin drawing the text for street names
+    SetTextEntry("STRING")
+
+    -- Set text color for street names
+    SetTextColour(178, 34, 34, 255) -- Yellow color for street names
+
+    -- Add street names in one string
+    AddTextComponentString(string.format("Street: %s | Cross Street: %s", streetName, crossStreetName))
+
+    -- Position the text at the bottom center of the screen and draw
+    DrawText(0.5, 0.85) -- Adjust position for visibility
+end
+
 -- Function to display coordinates in a chat message
 function displayChatCoordinates()
     local playerPed = PlayerPedId()
@@ -63,6 +83,28 @@ RegisterCommand('coords', function()
             args = { "Coordinates", "Coordinates display toggled off." }
         })
         print("Coordinates display disabled.")
+    end
+end)
+
+-- Street Handler
+Citizen.CreateThread(function()
+    while true do
+        Citizen.Wait(12)
+
+        local playerID                    = PlayerPedId() -- Corrected function name
+        local playerCoordinates           = GetEntityCoords(playerID)
+        local streetHash, crossStreetHash = GetStreetNameAtCoord(table.unpack(playerCoordinates))
+        local streetName                  = GetStreetNameFromHashKey(streetHash)
+        local crossStreetName             = GetStreetNameFromHashKey(crossStreetHash)
+
+        -- Removed console printing of street names
+        -- Print street names to console (for debugging)
+        -- print('LOCATION', streetName, crossStreetName)
+
+        -- Display street names on screen
+        if showCoords then
+            displayStreetNames(streetName, crossStreetName)
+        end
     end
 end)
 
